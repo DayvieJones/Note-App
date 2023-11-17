@@ -67,6 +67,7 @@ button:hover {
 .noteCard:hover {
   background-color: rgba(var(--primaryColorBoxShadow), 0.1);
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 .cardHeader {
   font-weight: bold;
@@ -106,7 +107,9 @@ button:hover {
 }
 
 #inputHeader {
-  font-size: 1.8rem;
+  flex-grow: 1; /* Flexibles Wachstum, um den verfügbaren Platz zu füllen */
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 #inputTextArea {
@@ -117,6 +120,8 @@ button:hover {
 
 .titleAndButtons {
   display: flex;
+  justify-content: space-between; /* Elements auf den Seiten verteilen */
+  align-items: center; /* Elements vertikal zentrieren */
   gap: 0.8rem;
   margin-bottom: 1rem;
 }
@@ -126,8 +131,5 @@ button:hover {
 .createNote {
   padding: 0.8rem;
   color: var(--textColor);
-}
-.saveNote,
-.deleteNote {
-  align-items: flex-end;
+  transition: all 0.3s ease-in-out;
 }
