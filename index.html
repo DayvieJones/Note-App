@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="noteApp">
-      <div class="sidebar">
+      <div class="sidebar" id="sidebar">
         <button class="createNote" onclick="createNewNote()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -27,12 +27,14 @@
           Create new note
         </button>
 
-        <div class="noteCard">
-          <div class="cardHeader">Dings</div>
-          <div class="cardText">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </div>
-          <div class="cardDate">11.11.2023, 19:30</div>
+        <div class="cardWrapper">
+          <!-- <div class="noteCard">
+            <div class="cardHeader">Dings</div>
+            <div class="cardText">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            </div>
+            <div class="cardDate">11.11.2023, 19:30</div>
+          </div> -->
         </div>
       </div>
       <div class="mainContent">
@@ -43,7 +45,7 @@
             id="inputHeader"
             placeholder="Enter your header here"
           />
-          <button class="saveNote" onclick="saveCurrentInput()">
+          <button class="saveNote" onclick="createNewCard()">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -59,7 +61,7 @@
               />
             </svg>
           </button>
-          <button class="deleteNote">
+          <button class="deleteNote" onclick="deleteSelectedCard()">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
