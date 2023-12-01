@@ -4,9 +4,10 @@
 }
 :root {
   --primaryColor: rgb(29, 82, 134);
-  --primaryColorBoxShadow: 29, 82, 134;
+  --primaryColorRGB: 29, 82, 134;
   --secondaryColor: #e0e0e0;
   --textColor: #ffffff;
+  --backgroundColorSelected: rgba(29, 82, 134, 0.5);
   --backgroundColor: #e0dddd70;
   --backgroundShadow: gray;
   --fontFamily: "Poppins", sans-serif;
@@ -65,12 +66,13 @@ button:hover {
   padding: 0.8rem;
   margin-top: 1rem;
   background-color: var(--backgroundColor);
-  box-shadow: 0 0 8px 1px rgba(var(--primaryColorBoxShadow), 0.4);
+  box-shadow: 0 0 8px 1px rgba(var(--primaryColorRGB), 0.4);
   border-radius: 0.5rem;
 }
 
-.noteCard:hover {
-  background-color: rgba(var(--primaryColorBoxShadow), 0.1);
+.noteCard:hover,
+.selectedNote {
+  background-color: var(--backgroundColorSelected);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }

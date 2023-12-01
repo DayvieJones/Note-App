@@ -1,20 +1,24 @@
 document.addEventListener("DOMContentLoaded", loadCardsFromLocalStorage);
+const createNoteEl = document.querySelector(".createNote");
+const saveNoteEl = document.querySelector(".saveNote");
+const deleteNoteEl = document.querySelector(".deleteNote");
+
+createNoteEl.addEventListener("click", createNewNote);
+saveNoteEl.addEventListener("click", createNewCard);
+deleteNoteEl.addEventListener("click", deleteSelectedCard);
+
 let cardNotes = [];
 let currentSelectedCardID = null;
-let currentSelectedCard = {};
 
 function loadCardsFromLocalStorage() {
-  console.log(cardNotes); //Methode um ein JSON String in Objekt/Array umzuwandeln
+  //Methode um ein JSON String in Objekt/Array umzuwandeln
   cardNotes = JSON.parse(localStorage.getItem("cardNotes")) || [];
   cardNotes.forEach((element) => {
-    console.log(element);
     appendCard(element);
   });
 }
 
 function saveCardsToLocalStorage() {
-  console.log(cardNotes);
-  console.log(JSON.stringify(cardNotes));
   localStorage.setItem("cardNotes", JSON.stringify(cardNotes));
 }
 
@@ -28,6 +32,10 @@ function getInputTextArea() {
   return document.querySelector("#inputTextArea");
 }
 
+function getCurrentlySelectedNote() {
+  return document.querySelector(".selected-note");
+}
+
 //clear the input fields
 function createNewNote() {
   getInputHeader().value = "";
@@ -37,9 +45,7 @@ function createNewNote() {
 //create a new card with values and checks input before append
 function createNewCard() {
   const randomID = Math.floor(Math.random() * 1000000);
-
-  const getTimestamp = () => new Date().toLocaleString("de-DE");
-  const timeStamp = getTimestamp();
+  const timeStamp = new Date().toLocaleString("de-DE");
 
   //creating the Card Object
   const newCard = {
@@ -61,37 +67,52 @@ function createNewCard() {
 
 //get a created card w/ values and append these into wrapper
 function appendCard(newCard) {
-  const card = document.createElement("div");
-  card.classList.add("noteCard");
-  card.id = newCard.id;
+  const cardEl = document.createElement("div");
+  cardEl.classList.add("noteCard");
+  cardEl.id = newCard.id;
 
-  card.addEventListener("click", () => {
+  cardEl.addEventListener("click", () => {
     selectCard(newCard.id);
   });
 
   const cardHeader = document.createElement("div");
   cardHeader.classList.add("cardHeader");
-  cardHeader.innerHTML = newCard.header;
+  cardHeader.textContent = newCard.header;
 
   const cardText = document.createElement("div");
   cardText.classList.add("cardText");
-  cardText.innerHTML = newCard.text;
+  cardText.textContent = newCard.text;
 
   const cardDate = document.createElement("div");
   cardDate.classList.add("cardDate");
-  cardDate.innerHTML = newCard.dateStamp;
+  cardDate.textContent = newCard.dateStamp;
 
-  card.appendChild(cardHeader);
-  card.appendChild(cardText);
-  card.appendChild(cardDate);
-  document.querySelector(".cardWrapper").appendChild(card);
+  cardEl.appendChild(cardHeader);
+  cardEl.appendChild(cardText);
+  cardEl.appendChild(cardDate);
+  document.querySelector(".cardWrapper").appendChild(cardEl);
   saveCardsToLocalStorage();
   createNewNote();
 }
 
 //select a card and shows the current content
 function selectCard(id) {
-  const selectedCard = cardNotes.find((card) => card.id == id);
+  const selectedCardEl = document.querySelector(`.noteCard[id="${id}"]`);
+  if (selectedCardEl.classList.contains("selectedNote")) return;
+
+  const noteEntrysElements = document.querySelectorAll(".noteCard");
+
+  noteEntrysElements.forEach((noteEntry) => {
+    noteEntry.classList.remove("selectedNote");
+  });
+
+  selectedCardEl.classList.add("selectedNote");
+
+  //
+  const selectedCard = cardNotes.find((card) => card.id == Number(id));
+
+  if (!selectedCard) return;
+
   getInputHeader().value = selectedCard.header;
   getInputTextArea().value = selectedCard.text;
   currentSelectedCardID = selectedCard.id;
