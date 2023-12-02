@@ -115,7 +115,7 @@ function selectCard(id) {
 
   getInputHeader().value = selectedCard.header;
   getInputTextArea().value = selectedCard.text;
-  currentSelectedCardID = selectedCard.id;
+  // currentSelectedCardID = selectedCard.id;
 }
 
 //delete the selected card from DOM and Array "cardNotes"
