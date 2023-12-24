@@ -140,3 +140,10 @@ button:hover {
   color: var(--textColor);
   transition: all 0.3s ease-in-out;
 }
+
+.saveNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
